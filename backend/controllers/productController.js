@@ -41,12 +41,20 @@ export const getProduct = async (req, res) => {
 
   try {
     const product = await sql`
-     SELECT * FROM products WHERE id=${id}
+      SELECT * FROM products WHERE id = ${id}
     `;
 
+    if (product.length === 0) {
+      // Product not found
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
+    }
+
+    // Product found
     res.status(200).json({ success: true, data: product[0] });
   } catch (error) {
-    console.log("Error in getProduct function", error);
+    console.error("Error in getProduct function", error);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };

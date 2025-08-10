@@ -21,6 +21,12 @@ function ProductPage() {
     fetchProduct(id);
   }, [fetchProduct, id]);
 
+  const handleUpdate = async(e) => {
+      e.preventDefault();
+      await updateProduct(id);
+      navigate("/");
+  }
+
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       await deleteProduct(id);
@@ -67,10 +73,7 @@ function ProductPage() {
             <h2 className="card-title text-2xl mb-6">Edit Product</h2>
 
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                updateProduct(id);
-              }}
+              onSubmit={handleUpdate}
               className="space-y-6"
             >
               {/* PRODUCT NAME */}

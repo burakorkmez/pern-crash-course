@@ -94,9 +94,11 @@ export const useProductStore = create((set, get) => ({
       set({ currentProduct: response.data.data });
       get().resetForm();  // reset form after update product
       toast.success("Product updated successfully");
+      return true;
     } catch (error) {
       toast.error("Something went wrong");
       console.log("Error in updateProduct function", error);
+      return false;
     } finally {
       set({ loading: false });
     }

@@ -23,8 +23,8 @@ function ProductPage() {
 
   const handleUpdate = async(e) => {
       e.preventDefault();
-      await updateProduct(id);
-      navigate("/");
+      const ok = await updateProduct(id);
+      if (ok) navigate("/");
   }
 
   const handleDelete = async () => {

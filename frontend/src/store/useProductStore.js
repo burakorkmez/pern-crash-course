@@ -85,16 +85,20 @@ export const useProductStore = create((set, get) => ({
       set({ loading: false });
     }
   },
+
   updateProduct: async (id) => {
     set({ loading: true });
     try {
       const { formData } = get();
       const response = await axios.put(`${BASE_URL}/api/products/${id}`, formData);
       set({ currentProduct: response.data.data });
+      get().resetForm();  // reset form after update product
       toast.success("Product updated successfully");
+      return true;
     } catch (error) {
       toast.error("Something went wrong");
       console.log("Error in updateProduct function", error);
+      return false;
     } finally {
       set({ loading: false });
     }
